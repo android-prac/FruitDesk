@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="systemName">
+        <item>선택하세요</item>
+        <item>잘생김</item>
+        <item>멋짐</item>
+        <item>섹시</item>
+        <item>군대</item>
+    </string-array>
+</resources>

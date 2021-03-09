@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
         // 좌측 드로어의 리스트 뷰를 초기화한다
         mExpandableListView = findViewById(R.id.nav_list_start)
         val itemList = arrayOf(
-            NavListItem("과일", arrayListOf("사과", "포도", "딸기", "오렌지", "바나나", "복숭아")),
+            NavListItem("과일", arrayListOf("요청/접수", "포도", "딸기", "오렌지", "바나나", "복숭아")),
             NavListItem("과일관리", arrayListOf("장애관리", "주문관리")),
             NavListItem("통계정보", arrayListOf("접수율", "처리율", "서비스 만족도", "그래프")),
             NavListItem("게시판", arrayListOf("공지사항",  "질의응답", "FAQ", "자료실")),
@@ -70,11 +70,19 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
                 id: Long
             ): Boolean {
 
-                Toast.makeText(this@HomeActivity,
-                    "Group:" + groupPosition + ", Child: " + childPosition,
-                    Toast.LENGTH_LONG)
-                    .show()
+                if(groupPosition==0){
+                    when(childPosition) {
+                        0->{
+                            supportFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.frag_container,RequestFragment())
+                                .commit()
+                            toolbar.setTitle("요청/접수")
+                            mDrawerLayout!!.closeDrawer(GravityCompat.START)
+                        }
+                    }
 
+                }
                 return true;
             }
         })
@@ -135,6 +143,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
             }
             else -> {
                 super.onBackPressed()
+
             }
         }
     }
@@ -155,11 +164,23 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
+
+            R.id.item_notice -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frag_container, NoticeFragment())
+                    .commit()
+
+                mDrawerLayout!!.closeDrawer(GravityCompat.END)
+            }
+
             R.id.item_my_info -> {
+
                 supportFragmentManager
                     .beginTransaction()
                     .add(R.id.frag_container, MemInfoFragment())
                     .commit()
+                mDrawerLayout!!.closeDrawer(GravityCompat.END)
 
             }
         }
