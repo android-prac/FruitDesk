@@ -76,6 +76,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
                             supportFragmentManager
                                 .beginTransaction()
                                 .replace(R.id.frag_container,RequestFragment())
+                                .addToBackStack(null)
                                 .commit()
                             toolbar.setTitle("요청/접수")
                             mDrawerLayout!!.closeDrawer(GravityCompat.START)
@@ -163,14 +164,17 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+
         when (item.itemId) {
 
             R.id.item_notice -> {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.frag_container, NoticeFragment())
+                    .addToBackStack(null)
                     .commit()
-
+                toolbar.setTitle("공지사항")
                 mDrawerLayout!!.closeDrawer(GravityCompat.END)
             }
 
@@ -179,7 +183,9 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
                 supportFragmentManager
                     .beginTransaction()
                     .add(R.id.frag_container, MemInfoFragment())
+                    .addToBackStack(null)
                     .commit()
+                toolbar.setTitle("회원정보")
                 mDrawerLayout!!.closeDrawer(GravityCompat.END)
 
             }
